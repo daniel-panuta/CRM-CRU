@@ -26,7 +26,14 @@ try:
     from sqlalchemy.engine.url import make_url
 
     alembic_url = os.getenv("ALEMBIC_DATABASE_URL")
-    if not alembic_url:
+    if alembic_url:
+        parsed = make_url(alembic_url)
+        if parsed.drivername == "postgresql+asyncpg":
+            parsed = parsed.set(drivername="postgresql+psycopg2")
+        elif parsed.drivername == "postgres":
+            parsed = parsed.set(drivername="postgresql+psycopg2")
+        alembic_url = str(parsed)
+    else:
         db_url = os.getenv("DATABASE_URL", settings.DATABASE_URL)
         parsed = make_url(db_url)
         if parsed.drivername == "postgresql+asyncpg":
