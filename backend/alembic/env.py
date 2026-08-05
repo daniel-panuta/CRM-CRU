@@ -23,15 +23,17 @@ except ImportError:
 
 try:
     from config import settings
+    from sqlalchemy.engine.url import make_url
+
     alembic_url = os.getenv("ALEMBIC_DATABASE_URL")
     if not alembic_url:
         db_url = os.getenv("DATABASE_URL", settings.DATABASE_URL)
-        if db_url.startswith("postgresql+asyncpg://"):
-            alembic_url = db_url.replace("postgresql+asyncpg://", "postgresql+psycopg2://", 1)
-        elif db_url.startswith("postgres://"):
-            alembic_url = db_url.replace("postgres://", "postgresql+psycopg2://", 1)
-        else:
-            alembic_url = db_url
+        parsed = make_url(db_url)
+        if parsed.drivername == "postgresql+asyncpg":
+            parsed = parsed.set(drivername="postgresql+psycopg2")
+        elif parsed.drivername == "postgres":
+            parsed = parsed.set(drivername="postgresql+psycopg2")
+        alembic_url = str(parsed)
     config.set_main_option("sqlalchemy.url", alembic_url)
 except Exception:
     pass
