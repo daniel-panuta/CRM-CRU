@@ -71,3 +71,7 @@ frontend/.env
 .netlify/
 
 backend/Dockerfile-local.txt
+
+test_db_urls.py
+.env
+.env.example

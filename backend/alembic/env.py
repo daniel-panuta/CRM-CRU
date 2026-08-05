@@ -30,7 +30,7 @@ try:
         parsed = make_url(alembic_url)
         if parsed.drivername == "postgresql+asyncpg":
             parsed = parsed.set(drivername="postgresql+psycopg2")
-        elif parsed.drivername == "postgres":
+        elif parsed.drivername in ("postgres", "postgresql"):
             parsed = parsed.set(drivername="postgresql+psycopg2")
         alembic_url = str(parsed)
     else:
@@ -38,8 +38,8 @@ try:
         parsed = make_url(db_url)
         if parsed.drivername == "postgresql+asyncpg":
             parsed = parsed.set(drivername="postgresql+psycopg2")
-        elif parsed.drivername == "postgres":
-            parsed = parsed.set(drivername="postgresql+psycopg2")
+        elif parsed.drivername in ("postgres", "postgresql"):
+            parsed = parsed.set(drivername="postgresql+psycopg2")    
         alembic_url = str(parsed)
     config.set_main_option("sqlalchemy.url", alembic_url)
 except Exception:
