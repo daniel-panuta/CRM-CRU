@@ -1,10 +1,8 @@
-from logging.config import fileConfig
 import os
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from logging.config import fileConfig
 
 from alembic import context
+from sqlalchemy import engine_from_config, pool
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -25,10 +23,16 @@ except ImportError:
 
 try:
     from config import settings
-    config.set_main_option(
-        "sqlalchemy.url",
-        os.getenv("ALEMBIC_DATABASE_URL", settings.DATABASE_URL),
-    )
+    alembic_url = os.getenv("ALEMBIC_DATABASE_URL")
+    if not alembic_url:
+        db_url = os.getenv("DATABASE_URL", settings.DATABASE_URL)
+        if db_url.startswith("postgresql+asyncpg://"):
+            alembic_url = db_url.replace("postgresql+asyncpg://", "postgresql+psycopg2://", 1)
+        elif db_url.startswith("postgres://"):
+            alembic_url = db_url.replace("postgres://", "postgresql+psycopg2://", 1)
+        else:
+            alembic_url = db_url
+    config.set_main_option("sqlalchemy.url", alembic_url)
 except Exception:
     pass
 
