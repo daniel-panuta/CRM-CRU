@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  background: #f4f5f7;
+}
+
+body {
+  @apply bg-slate-100 text-slate-900 antialiased;
+  background-image:
+    radial-gradient(circle at top left, rgba(15, 23, 42, 0.06), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(100, 116, 139, 0.08), transparent 24%);
+  min-height: 100vh;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.crm-shell {
+  @apply min-h-screen;
+}
+
+.crm-panel {
+  @apply rounded-[20px] border border-slate-200 bg-white/90 shadow-[0_16px_50px_rgba(15,23,42,0.08)] backdrop-blur;
+}
+
+.crm-card {
+  @apply crm-panel p-6;
+}
+
+.crm-button {
+  @apply inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium transition duration-200 ease-out;
+}
+
+.crm-button-primary {
+  @apply crm-button bg-slate-900 text-white hover:bg-slate-700;
+}
+
+.crm-button-secondary {
+  @apply crm-button border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50;
+}
+
+.crm-input {
+  @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200;
+}
+
+.crm-label {
+  @apply text-xs font-semibold uppercase tracking-[0.2em] text-slate-500;
+}
+
+.crm-page-title {
+  @apply text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl;
+}
+
+.crm-page-subtitle {
+  @apply mt-3 max-w-2xl text-sm leading-6 text-slate-600;
+}
+
+.crm-sidebar {
+  @apply fixed left-0 top-0 flex h-screen w-72 flex-col border-r border-slate-200 bg-white/95 px-5 py-6 shadow-[0_12px_40px_rgba(15,23,42,0.08)] backdrop-blur;
+}
+
+.crm-main {
+  @apply ml-72 p-6 md:p-8 w-[calc(100%-18rem)] overflow-x-auto;
+}
+
+.crm-nav-link {
+  @apply flex items-center gap-3 rounded-2xl border border-transparent px-4 py-3 text-sm font-medium text-slate-700 transition hover:border-slate-200 hover:bg-slate-50 hover:text-slate-950;
+}
+
+.crm-nav-link-active {
+  @apply border-slate-200 bg-slate-50 text-slate-950;
+}
+
+.crm-table-wrap {
+  @apply overflow-x-auto rounded-[24px] border border-slate-200 bg-white shadow-[0_12px_40px_rgba(15,23,42,0.06)];
+}
+
+.crm-table {
+  @apply w-full border-collapse text-left;
+}
+
+.crm-table th {
+  @apply bg-slate-50 px-5 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500;
+}
+
+.crm-table td {
+  @apply border-t border-slate-100 px-5 py-4 align-top text-sm text-slate-700;
+}
+
+.crm-badge {
+  @apply inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600;
+}
+
+.crm-kpi {
+  @apply rounded-[20px] border border-slate-200 bg-white p-4 shadow-sm;
+}
+
+.crm-hero {
+  @apply overflow-hidden rounded-[28px] border border-slate-200 bg-white/90 p-8 shadow-[0_18px_60px_rgba(15,23,42,0.08)];
+}
+
+.crm-auth-shell {
+  @apply min-h-screen p-4 md:p-8;
+}
+
+.crm-auth-grid {
+  @apply mx-auto grid min-h-[calc(100vh-2rem)] max-w-6xl overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.10)] md:grid-cols-[1.1fr_0.9fr];
+}
+
+.crm-auth-visual {
+  @apply flex flex-col justify-between bg-slate-950 p-8 text-white md:p-10;
+  background-image:
+    radial-gradient(circle at top left, rgba(255,255,255,0.12), transparent 32%),
+    linear-gradient(160deg, #0f172a 0%, #111827 100%);
+}
+
+.crm-auth-card {
+  @apply flex items-center justify-center p-6 md:p-10;
+}
+
+.crm-auth-inner {
+  @apply w-full max-w-md;
+}
+
+.crm-section-title {
+  @apply text-lg font-semibold tracking-tight text-slate-900;
+}
+
+.crm-muted {
+  @apply text-sm text-slate-500;
+}
+
+.crm-divider {
+  @apply border-t border-slate-200;
+}

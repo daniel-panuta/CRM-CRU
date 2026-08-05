@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: crmdb
+      POSTGRES_USER: crm_app
+      POSTGRES_PASSWORD: pass123
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    command: postgres -c max_connections=200
+
+  api:
+    build: ./backend
+    ports: ["8000:8000"]
+    depends_on: [db]
+    environment:
+      DATABASE_URL: postgresql+asyncpg://crm_app:pass123@db:5432/crmdb
+      ALEMBIC_DATABASE_URL: postgresql+psycopg2://crm_app:pass123@db:5432/crmdb
+      ADMIN_EMAIL: agata.panuta@example.com
+      ADMIN_PASSWORD: password123
+      ADMIN_NAME: Panuta Agata
+      CORS_ORIGINS: http://localhost:5173,http://127.0.0.1:5173
+
+  frontend:
+    build: ./frontend
+    ports: ["5173:5173"]
+    depends_on: [api]
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+    environment:
+      VITE_API_URL: http://localhost:8000
+    command: npm run dev -- --host 0.0.0.0
+
+volumes:
+  pgdata:
+  frontend_node_modules:
