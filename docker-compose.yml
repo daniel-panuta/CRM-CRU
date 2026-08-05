@@ -10,7 +10,9 @@ services:
     command: postgres -c max_connections=200
 
   api:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     ports: ["8000:8000"]
     depends_on: [db]
     environment:

@@ -62,3 +62,12 @@ pgdata/
 
 # Backend internals
 backend/alembic/versions/__pycache__/
+
+# local environment files
+backend/.env
+frontend/.env
+
+# Netlify local files
+.netlify/
+
+backend/Dockerfile-local.txt
