@@ -1,3 +1,5 @@
+import uuid
+
 from config import parse_cors_origins, settings
 from database import AsyncSessionLocal, close_db, init_db
 from fastapi import FastAPI
@@ -70,11 +72,12 @@ async def ensure_default_admin():
             await session.execute(
                 text(
                     """
-                    INSERT INTO users (email, hashed_password, name, role)
-                    VALUES (:email, :hashed_password, :name, 'admin')
+                    INSERT INTO users (id, email, hashed_password, name, role)
+                    VALUES (:id, :email, :hashed_password, :name, 'admin')
                     """
                 ),
                 {
+                    "id": str(uuid.uuid4()),
                     "email": settings.ADMIN_EMAIL,
                     "hashed_password": hash_password(settings.ADMIN_PASSWORD),
                     "name": settings.ADMIN_NAME,
