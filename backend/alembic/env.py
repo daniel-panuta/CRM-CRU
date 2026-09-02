@@ -40,6 +40,14 @@ try:
             parsed = parsed.set(drivername="postgresql+psycopg2")
         elif parsed.drivername in ("postgres", "postgresql"):
             parsed = parsed.set(drivername="postgresql+psycopg2")    
+        
+        # Clean query parameters for psycopg2 compatibility
+        query_params = dict(parsed.query)
+        if "ssl" in query_params:
+            ssl_val = query_params.pop("ssl")
+            if ssl_val == "require":
+                query_params["sslmode"] = "require"
+        parsed = parsed._replace(query=query_params)
         alembic_url = str(parsed)
     config.set_main_option("sqlalchemy.url", alembic_url)
 except Exception:

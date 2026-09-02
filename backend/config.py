@@ -14,7 +14,7 @@ def parse_cors_origins(raw_value: str | None = None) -> list[str]:
 class Settings(BaseSettings):
     DATABASE_URL: str = os.getenv(
         "DATABASE_URL",
-        "postgresql+asyncpg://neondb_owner:npg_HmB4ALo6XOhc@ep-odd-pine-za85cpww.c-2.eu-west-2.aws.neon.tech/neondb?ssl=require"
+        "postgresql+asyncpg://neondb_owner:npg_HmB4ALo6XOhc@ep-odd-pine-za85cpww.c-2.eu-west-2.aws.neon.tech/neondb?sslmode=require"
     )
     SECRET_KEY: str = os.getenv("SECRET_KEY", "dev-secret-key-change-in-prod")
     ALGORITHM: str = "HS256"
