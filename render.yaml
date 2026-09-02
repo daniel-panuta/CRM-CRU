@@ -2,6 +2,9 @@ services:
   - type: web
     name: crmcontacte-api
     env: python
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
     plan: free
     rootDir: backend
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
